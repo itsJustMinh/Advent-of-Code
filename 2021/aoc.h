@@ -180,6 +180,9 @@ void day3_2(ifstream &file)
             if (carbon[i][index] == '1')
                 carbon.erase(carbon.begin() + i);
 
+    cerr << "oxygen: " << oxygen[0] << "_2 (" << btoi(oxygen[0]) << ")" << endl;
+    cerr << "carbon: " << carbon[0] << "_2 (" << btoi(carbon[0]) << ")" << endl;
+
     cout << btoi(oxygen[0]) * btoi(carbon[0]) << endl;
 }
 
