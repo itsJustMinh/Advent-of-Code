@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
 #include <string>
 #include "aoc.h"
 
@@ -28,9 +27,19 @@ int main(int argc, char *args[])
     ifstream inFile;
     inFile.open(fName);
 
-    cout << "Attempting to open file at location: " << fName << endl;
+    cout << "Attempting to open file at location: " << fName << ":" << endl;
     if (inFile.is_open())
-        day1_2(inFile);
+    {
+        try
+        {
+            day3_2(inFile);
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << endl;
+            cerr << "Something bad happened while running line 36 in ./runner.cpp" << endl;
+        }
+    }
     else
         cout << "Unable to open the file." << endl;
 }
