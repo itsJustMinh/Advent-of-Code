@@ -13,9 +13,6 @@
 #include <iostream>
 // change output path here⤵ (if you're printing answer out to another file)
 #define OUTPUTPATH "./output"
-#define DAY01_ARRLEN 2000
-#define DAY01_STRLEN 8
-#define DAY02_STRLEN DAY01_STRLEN
 #define DAY03_ARRLEN 12
 #define DAY03_STRLEN DAY03_ARRLEN + 2
 /*
@@ -29,8 +26,10 @@
  *      (either to terminal or to an outfile file)
  */
 
-// start writing your f[                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                YUI]\unctions for each advent of code day here
-void day1_1(std::ifstream &file)
+// start writing your functions for each advent of code day here
+using namespace std;
+
+void day1_1(ifstream &file)
 {
     int prevnum = -1;
     int count = 0;
@@ -41,84 +40,82 @@ void day1_1(std::ifstream &file)
             count++;
         prevnum = num;
     }
-    std::cout << count;
+    cout << count;
 }
 
-void day1_2(std::ifstream &file)
+void day1_2(ifstream &file)
 {
-    std::vector<int> arr;
+    vector<int> arr;
     int index = 0;
     int count = 0;
+    
     int num;
-
     while (file >> num) 
         arr.push_back(num);
 
-    for (int i = 0; i < DAY01_ARRLEN - 3; i++)
+    for (int i = 0; i < arr.size() - 3; i++)
         if (arr[i + 3] > arr[i])
             count++;
     
-    std::cout << count;
+    cout << count;
 }
 
-void day2_1(std::ifstream &file)
+void day2_1(ifstream &file)
 {
     int horizontal = 0;
     int depth = 0;
     
-    std::string line;
+    string direction;
     int val;
-    while (file >> line >> val)
+    while (file >> direction >> val)
     {
-        if (line.compare("forward") == 0)
+        if (direction.compare("forward") == 0)
             horizontal += val;
-        else if (line.compare("down") == 0)
+        else if (direction.compare("down") == 0)
             depth += val;
         else
             depth -= val;
     }
 
-    std::cout << horizontal * depth;
+    cout << horizontal * depth;
 }
 
-void day2_2(std::ifstream &file)
+void day2_2(ifstream &file)
 {
     int horizontal = 0;
     int depth = 0;
     int aim = 0;
 
-    std::string line;
+    string direction;
     int val;
-    while (file >> line >> val)
+    while (file >> direction >> val)
     {
-        if (line.compare("foward") == 0)
+        if (direction.compare("foward") == 0)
         {
             horizontal += val;
             depth += val * aim;
         }
 
-        else if (line.compare("down") == 0)
+        else if (direction.compare("down") == 0)
             aim += val;
         else
             aim -= val;
     }
 
-    std::cout << horizontal * depth;
+    cout << horizontal * depth;
 }
 
-
-void day3_1(FILE *file)
+void day3_1(ifstream &file)
 {
     int arr[DAY03_ARRLEN]; //keeps track of number of 1s in each column
     // set them all to 0, because they're filled with garbage values 
     for (int i = 0; i < DAY03_ARRLEN; i++)
         arr[i] = 0;
-    int index = 0;
-    while (!feof(file))
-    {
-        char line[DAY03_STRLEN];
-        fgets(line, DAY03_STRLEN, file);
 
+    int index = 0;
+    string line;
+    while (file >> line)
+    {
         for (int i = 0; i < DAY03_ARRLEN; i++)
             arr[i] += line[i] == '1' ? 1 : 0;
         index++;
@@ -140,6 +137,6 @@ void day3_1(FILE *file)
     for (int i = 0; i < DAY03_ARRLEN - max; i++)
         epsilon ^= 1 << i;
     
-    std::cout << gamma * epsilon;
+    cout << gamma * epsilon;
 }
 #endif
