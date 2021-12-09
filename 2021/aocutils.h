@@ -15,4 +15,13 @@ int btoi(string b)
     return res;
 }
 
+// gets index of a string in a string array
+int indexOf(string arr[], int size, string target)
+{
+    for (int i = 0; i < size; i++)
+        if (arr[i].compare(target) == 0)
+            return i;
+    return -1;
+}
+
 #endif
