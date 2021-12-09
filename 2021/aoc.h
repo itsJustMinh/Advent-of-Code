@@ -156,9 +156,7 @@ void day3_1(ifstream &file)
 
 void day3_2(ifstream &file)
 {
-    // declare an initialize an integer array of DAY03_ARRLEN 0s.
     vector<string> oxygen, carbon;
-    
     string line;
     while (file >> line)
     {
@@ -169,20 +167,45 @@ void day3_2(ifstream &file)
     }
     // looking at second bit b/c we already looked at the first bit when reading in file
     int index = 1;
-    while (oxygen.size() > 1 || index >= oxygen.size() - 1)
+    int olen = oxygen.size();
+    int clen = carbon.size();
+    int numbits = line.size();
+    while (oxygen.size() > 1 && index < olen)
+    {
+        // find the least common bit at column `index`
+        int count = 0;
         for (int i = 0; i < oxygen.size(); i++)
-            if (oxygen[i][index] == '0')
+            if (oxygen[i][index] == '1')
+                count++;   
+        
+        int half = oxygen.size() >> 1;
+        int lcb = count >= half ? 0 : 1;
+
+        // delete numbers if they have least common bit at position `index`
+        for (int i = 0; i < oxygen.size(); i++)
+            if (oxygen[i][index] == ('0' + lcb))
                 oxygen.erase(oxygen.begin() + i);
+        index++;
+    }
 
     index = 1;
-    while (carbon.size() > 1 || index >= oxygen.size() - 1)
+    while (carbon.size() > 1 && index < clen)
+    {
+        // find the most common bit at column `index`
+        int count = 0;
         for (int i = 0; i < carbon.size(); i++)
             if (carbon[i][index] == '1')
+                count++;
+        int mcb = count > (carbon.size() >> 1) ? 1 : 0;
+
+        // delete numbers if they have most common bit at position `index`
+        for (int i = 0; i < carbon.size(); i++)
+            if (carbon[i][index] == ('0' + mcb))
                 carbon.erase(carbon.begin() + i);
-
-    cerr << "oxygen: " << oxygen[0] << "_2 (" << btoi(oxygen[0]) << ")" << endl;
-    cerr << "carbon: " << carbon[0] << "_2 (" << btoi(carbon[0]) << ")" << endl;
-
+        index++;
+    }
+    cerr << "oxygen: " << oxygen[0] << "_2\t" << btoi(oxygen[0]) << endl;
+    cerr << "carbon: " << carbon[0] << "_2\t" << btoi(carbon[0]) << endl;
     cout << btoi(oxygen[0]) * btoi(carbon[0]) << endl;
 }
 
