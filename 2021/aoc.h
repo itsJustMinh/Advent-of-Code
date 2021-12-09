@@ -1,5 +1,12 @@
-/*
- * This header files contains functions for the advent of code problems.
+/**
+ * @file aoc.h
+ * @author Minh Nguyen (itsminhnguyen@outlook.com)
+ * @brief This file contains all the functions for each Advent of Code day.
+ * @version 0.1
+ * @date 2021-12-02
+ * 
+ * @copyright Copyright (c) 2021
+ * 
  */
 #ifndef _AOC_H
 #define _AOC_H
@@ -9,10 +16,10 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+
 // change output path here⤵ (if you're printing answer out to another file)
 #define OUTPUTPATH "./output"
 #define DAY03_ARRLEN 12
-#define DAY03_STRLEN DAY03_ARRLEN + 2
 /*
  * ✨function naming conventions:✨
  *      day{day number}_{part number}
@@ -44,7 +51,6 @@ void day1_1(ifstream &file)
 void day1_2(ifstream &file)
 {
     vector<int> arr;
-    int index = 0;
     int count = 0;
     
     int num;
@@ -105,21 +111,21 @@ void day2_2(ifstream &file)
 
 void day3_1(ifstream &file)
 {
-    int arr[DAY03_ARRLEN]; //keeps track of number of 1s in each column
-    // set them all to 0, because they're filled with garbage values 
+    // declare an initialize an integer array of DAY03_ARRLEN 0s.
+    int arr[DAY03_ARRLEN]; // keeps track of number of 1s in each column of day3.txt
     for (int i = 0; i < DAY03_ARRLEN; i++)
         arr[i] = 0;
 
-    int index = 0;
+    int numlines = 0;
     string line;
     while (file >> line)
     {
         for (int i = 0; i < DAY03_ARRLEN; i++)
             arr[i] += line[i] == '1' ? 1 : 0;
-        index++;
+        numlines++;
     }
 
-    int half = index / 2;
+    int half = numlines / 2;
     int gamma = 0;
     int max = -1;
     for (int i = 0; i < DAY03_ARRLEN; i++)
@@ -137,4 +143,26 @@ void day3_1(ifstream &file)
     
     cout << gamma * epsilon;
 }
+
+void day3_2(ifstream &file)
+{
+    // declare an initialize an integer array of DAY03_ARRLEN 0s.
+    int arr[DAY03_ARRLEN]; // keeps track of number of 1s in each column of day3.txt
+    for (int i = 0; i < DAY03_ARRLEN; i++)
+        arr[i] = 0;
+    
+    int numlines = 0;
+    string line;
+    while (file >> line)
+    {
+        for (int i = 0; i < DAY03_ARRLEN; i++)
+            arr[i] += line[i] == '1' ? 1 : 0;
+        numlines++;
+    }
+
+    int half = numlines / 2;
+
+}
+
+
 #endif

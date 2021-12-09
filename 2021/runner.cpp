@@ -1,3 +1,14 @@
+/**
+ * @file runner.cpp
+ * @author Minh Nguyen (itsminhnguyen@outlook.com)
+ * @brief This file is used to run functions created in aoc.h
+ * @version 0.1
+ * @date 2021-12-08
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #include <iostream>
 #include <fstream>
 #include <string>
