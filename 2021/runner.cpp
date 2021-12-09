@@ -4,8 +4,6 @@
 #include <string>
 #include "aoc.h"
 
-// ./input/dayxx.txt\0 is 18 characters long
-#define STRLEN 18
 // change file path here⤵
 #define INPUTPATH "./input/"
 
@@ -20,15 +18,19 @@ int main(int argc, char *args[])
         fName += args[1];
     else
     {
-        std::cout << "What file do you want to read from?" << endl;
-        cin >> fName;
+        cout << "What file do you want to read from?" << endl << ">> ";
+        // i wonder if there's a simpler way to do this
+        string line;
+        cin >> line;
+        fName += line;
     }
 
     ifstream inFile;
     inFile.open(fName);
 
+    cout << "Attempting to open file at location: " << fName << endl;
     if (inFile.is_open())
         day1_2(inFile);
     else
-        cout << "Unable to open file " << fName << endl;
+        cout << "Unable to open the file." << endl;
 }

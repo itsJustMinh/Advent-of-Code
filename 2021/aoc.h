@@ -5,10 +5,8 @@
 #define _AOC_H
 
 #include <cmath>
-#include <cstdio>
 #include <string>
 #include <vector>
-#include <cstring>
 #include <fstream>
 #include <iostream>
 // change output path here⤵ (if you're printing answer out to another file)
