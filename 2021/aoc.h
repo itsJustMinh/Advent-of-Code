@@ -16,6 +16,7 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include "aocutils.h"
 
 // change output path here⤵ (if you're printing answer out to another file)
 #define OUTPUTPATH "./output"
@@ -34,6 +35,9 @@
 // start writing your functions for each advent of code day here
 using namespace std;
 
+/*
+ * DAY 1 ➡ https://adventofcode.com/2021/day/1
+ */
 void day1_1(ifstream &file)
 {
     int prevnum = -1;
@@ -64,6 +68,9 @@ void day1_2(ifstream &file)
     cout << count;
 }
 
+/*
+ * DAY 2 ➡ https://adventofcode.com/2021/day/2
+ */
 void day2_1(ifstream &file)
 {
     int horizontal = 0;
@@ -109,6 +116,9 @@ void day2_2(ifstream &file)
     cout << horizontal * depth;
 }
 
+/*
+ * DAY 3 ➡ https://adventofcode.com/2021/day/3
+ */
 void day3_1(ifstream &file)
 {
     // declare an initialize an integer array of DAY03_ARRLEN 0s.
@@ -147,21 +157,30 @@ void day3_1(ifstream &file)
 void day3_2(ifstream &file)
 {
     // declare an initialize an integer array of DAY03_ARRLEN 0s.
-    int arr[DAY03_ARRLEN]; // keeps track of number of 1s in each column of day3.txt
-    for (int i = 0; i < DAY03_ARRLEN; i++)
-        arr[i] = 0;
+    vector<string> oxygen, carbon;
     
-    int numlines = 0;
     string line;
     while (file >> line)
     {
-        for (int i = 0; i < DAY03_ARRLEN; i++)
-            arr[i] += line[i] == '1' ? 1 : 0;
-        numlines++;
+        if (line[0] == '1')
+            oxygen.push_back(line);
+        else
+            carbon.push_back(line);
     }
+    // looking at second bit b/c we already looked at the first bit when reading in file
+    int index = 1;
+    while (oxygen.size() > 1 || index >= oxygen.size() - 1)
+        for (int i = 0; i < oxygen.size(); i++)
+            if (oxygen[i][index] == '0')
+                oxygen.erase(oxygen.begin() + i);
 
-    int half = numlines / 2;
+    index = 1;
+    while (carbon.size() > 1 || index >= oxygen.size() - 1)
+        for (int i = 0; i < carbon.size(); i++)
+            if (carbon[i][index] == '1')
+                carbon.erase(carbon.begin() + i);
 
+    cout << btoi(oxygen[0]) * btoi(carbon[0]) << endl;
 }
 
 
