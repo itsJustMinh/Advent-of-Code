@@ -1,6 +1,7 @@
 #ifndef _AOCUTILS_H
 #define _AOCUTILS_H
 
+#include <vector>
 #include <string>
 
 using namespace std;
@@ -22,6 +23,24 @@ int indexOf(string arr[], int size, string target)
         if (arr[i].compare(target) == 0)
             return i;
     return -1;
+}
+
+/**
+ * @brief For aoc day 3, it returns the count of 1s found in the position of a vector string,
+ *        where the vector contains strings comprised of '0' and '1' characters.
+ * 
+ * @param v the vector of strings containing 0 and 1
+ * @param pos the position of the string to look at
+ * @return int -- the number of '1's found in the position `pos` in each string in the vector
+ */
+int day3count1s(vector<string> v, int pos)
+{
+    int count = 0;
+    for (int i = 0; i < v.size(); i++)
+        if (v[i][pos] == '1')
+            count++;
+
+    return count;
 }
 
 #endif

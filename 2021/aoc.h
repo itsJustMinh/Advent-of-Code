@@ -173,17 +173,17 @@ void day3_2(ifstream &file)
     while (oxygen.size() > 1 && index < olen)
     {
         // find the least common bit at column `index`
-        int count = 0;
+        int c = day3count1s(carbon, index);
+        int half = carbon.size() << 1;
+        int mcb = 0;
+        if (c >= half)
+            mcb = 1;
+        else
+            mcb = 0;
+        cerr << "oxygen most common bit: " << mcb << endl;
+        // delete numbers if they don't have most common bit at position `index`
         for (int i = 0; i < oxygen.size(); i++)
-            if (oxygen[i][index] == '1')
-                count++;   
-        
-        int half = oxygen.size() >> 1;
-        int lcb = count >= half ? 0 : 1;
-
-        // delete numbers if they have least common bit at position `index`
-        for (int i = 0; i < oxygen.size(); i++)
-            if (oxygen[i][index] == ('0' + lcb))
+            if (oxygen[i][index] != ('0' + mcb))
                 oxygen.erase(oxygen.begin() + i);
         index++;
     }
@@ -192,15 +192,17 @@ void day3_2(ifstream &file)
     while (carbon.size() > 1 && index < clen)
     {
         // find the most common bit at column `index`
-        int count = 0;
+        int c = day3count1s(carbon, index);
+        int half = carbon.size() << 1;
+        int lcb;
+        if (c < half)
+            lcb = 1;
+        else
+            lcb = 0;
+        cerr << "carbon least common bit: " << lcb << endl;
+        // delete numbers if they don't contain least common bit at position `index`
         for (int i = 0; i < carbon.size(); i++)
-            if (carbon[i][index] == '1')
-                count++;
-        int mcb = count > (carbon.size() >> 1) ? 1 : 0;
-
-        // delete numbers if they have most common bit at position `index`
-        for (int i = 0; i < carbon.size(); i++)
-            if (carbon[i][index] == ('0' + mcb))
+            if (carbon[i][index] != ('0' + lcb))
                 carbon.erase(carbon.begin() + i);
         index++;
     }
