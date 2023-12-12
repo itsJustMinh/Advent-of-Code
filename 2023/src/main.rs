@@ -50,7 +50,11 @@ fn set_day(args: &[String]) -> usize {
 }
 
 fn set_test(args: &[String]) -> bool {
-    if let Some(test) = args.iter().position(|arg| arg == "--test").and_then(|idx| args.get(idx + 1)) {
+    if let Some(test) = args
+        .iter()
+        .position(|arg| arg == "--test")
+        .and_then(|idx| args.get(idx + 1))
+    {
         return test == "true";
     }
 
