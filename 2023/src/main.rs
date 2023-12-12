@@ -1,31 +1,47 @@
-use std::{env, fs::{self}, io::Write};
+use std::{
+    env,
+    fs::{self},
+    io::Write,
+};
 
 mod day1;
 
 const AOC_FUNCTIONS: [fn(&[String]); 1] = [day1::solution];
-const INPUT_DIRECTORY: &str = "input/";
 
 fn main() {
     let args = env::args().collect::<Vec<String>>();
 
     let day = set_day(&args);
     let test = set_test(&args);
+    let mut input_dir = "input/";
+
+    if let Some(dir) = &args
+        .iter()
+        .position(|arg| arg == "--input-dir")
+        .and_then(|idx| args.get(idx + 1))
+    {
+        if let Ok(metadata) = fs::metadata(dir) {
+            if metadata.is_dir() {
+                input_dir = dir;
+            }
+        }
+    }
 
     let file_path = format!(
-        "{INPUT_DIRECTORY}day-{}{}.txt",
+        "{input_dir}day-{}{}.txt",
         day,
         if test { "-test" } else { "" }
     );
 
     match fs::read_to_string(&file_path) {
         Ok(file_string) => {
-                let lines = file_string
-                    .trim()
-                    .lines()
-                    .map(|line| line.to_string())
-                    .collect::<Vec<String>>();
+            let lines = file_string
+                .trim()
+                .lines()
+                .map(|line| line.to_string())
+                .collect::<Vec<String>>();
             AOC_FUNCTIONS[day - 1](&lines);
-        },
+        }
         Err(_) => println!("Could not find {file_path}! Exiting..."),
     }
 }
