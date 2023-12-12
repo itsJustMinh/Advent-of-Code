@@ -1,3 +1,3 @@
-pub fn solution(file: std::fs::File) {
-    println!("{:?}", file);
+pub fn solution(lines: &[String]) {
+    println!("{:?}", lines);
 }

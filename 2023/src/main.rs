@@ -1,8 +1,8 @@
-use std::{env, fs::File, io::Write};
+use std::{env, fs::{self}, io::Write};
 
 mod day1;
 
-const AOC_FUNCTIONS: [fn(File); 1] = [day1::solution];
+const AOC_FUNCTIONS: [fn(&[String]); 1] = [day1::solution];
 const INPUT_DIRECTORY: &str = "input/";
 
 fn main() {
@@ -17,8 +17,15 @@ fn main() {
         if test { "-test" } else { "" }
     );
 
-    match File::open(&file_path) {
-        Ok(aoc_file) => AOC_FUNCTIONS[day - 1](aoc_file),
+    match fs::read_to_string(&file_path) {
+        Ok(file_string) => {
+                let lines = file_string
+                    .trim()
+                    .lines()
+                    .map(|line| line.to_string())
+                    .collect::<Vec<String>>();
+            AOC_FUNCTIONS[day - 1](&lines);
+        },
         Err(_) => println!("Could not find {file_path}! Exiting..."),
     }
 }
