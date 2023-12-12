@@ -40,51 +40,41 @@ fn part2(lines: &[String]) -> i32 {
     ]);
 
     for line in lines {
-        let front_digit_pos = line.chars().position(|c| c.is_ascii_digit());
-        let back_digit_pos = line.chars().rev().position(|c| c.is_ascii_digit());
-
         let mut indices = Vec::new();
 
+        if let Some(front_digit_pos) = line.chars().position(|c| c.is_ascii_digit()) {
+            indices.push((
+                front_digit_pos,
+                line.chars().nth(front_digit_pos).unwrap().to_string(),
+            ));
+        }
+
+        if let Some(back_digit_pos) = line.chars().rev().position(|c| c.is_ascii_digit()) {
+            let actual_idx = line.len() - back_digit_pos - 1;
+            indices.push((
+                actual_idx,
+                line.chars()
+                    .nth(actual_idx)
+                    .unwrap()
+                    .to_string(),
+            ));
+        }
+
         for key in nums.keys() {
-            let mut idxs: Vec<(usize, &str)> = line.match_indices(key).collect();
+            let mut idxs: Vec<(usize, String)> = line
+                .match_indices(key)
+                .map(|(k, v)| (k, nums.get(v).unwrap().to_string()))
+                .collect();
             indices.append(&mut idxs);
         }
         indices.sort();
 
-        let mut num_str: String;
-
-        if indices.is_empty()
-            || front_digit_pos.is_some_and(|idx| indices.is_empty() || idx < indices[0].0)
-        {
-            num_str = line
-                .chars()
-                .nth(front_digit_pos.unwrap())
-                .unwrap()
-                .to_string();
-        } else {
-            num_str = nums.get(indices[0].1).unwrap().to_string();
-        }
-
-        if back_digit_pos.is_some_and(|idx| {
-            indices.is_empty() || (line.len() - idx - 1) > indices[indices.len() - 1].0
-        }) {
-            num_str.push_str(
-                line.chars()
-                    .nth(line.len() - back_digit_pos.unwrap() - 1)
-                    .unwrap()
-                    .to_string()
-                    .as_str(),
-            );
-        } else {
-            num_str.push_str(
-                nums.get(indices[indices.len() - 1].1)
-                    .unwrap()
-            )
-        }
+        let mut num_str = indices[0].1.clone();
+        num_str.push_str(indices[indices.len() - 1].1.as_str());
 
         match num_str.parse::<i32>() {
             Ok(res) => sum += res,
-            Err(err) => println!("Couldn't parse {} somehow...", err),
+            Err(_) => println!("Couldn't parse {} somehow...", num_str),
         }
     }
 
