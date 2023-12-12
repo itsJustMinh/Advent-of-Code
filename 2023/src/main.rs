@@ -5,8 +5,9 @@ use std::{
 };
 
 mod day1;
+mod day2;
 
-const AOC_FUNCTIONS: [fn(&[String]); 1] = [day1::solution];
+const AOC_FUNCTIONS: [fn(&[String]); 2] = [day1::solution, day2::solution];
 
 fn main() {
     let args = env::args().collect::<Vec<String>>();
