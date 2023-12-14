@@ -6,8 +6,9 @@ use std::{
 
 mod day1;
 mod day2;
+mod day3;
 
-const AOC_FUNCTIONS: [fn(&[String]); 2] = [day1::solution, day2::solution];
+const AOC_FUNCTIONS: [fn(&[String]); 3] = [day1::solution, day2::solution, day3::solution];
 
 fn main() {
     let args = env::args().collect::<Vec<String>>();
@@ -15,6 +16,7 @@ fn main() {
     let day = set_day(&args);
     let test = set_test(&args);
     let mut input_dir = "input/";
+
 
     if let Some(dir) = &args
         .iter()
